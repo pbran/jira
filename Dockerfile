@@ -1,9 +1,9 @@
 FROM blacklabelops/alpine:3.5
-MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
+MAINTAINER Paul Branston apbran@rannoch.demon.co.uk
 
 # Note that you also need to update buildscripts/release.sh when the
 # Jira version changes
-ARG JIRA_VERSION=7.5.2
+ARG JIRA_VERSION=7.6.0
 ARG JIRA_PRODUCT=jira-software
 # Permissions, set the linux user id and group id
 ARG CONTAINER_UID=1000
@@ -109,10 +109,10 @@ RUN apk add --update                                    \
     rm -rf /var/log/*
 
 # Image Metadata
-LABEL com.blacklabelops.application.jira.version=$JIRA_PRODUCT-$JIRA_VERSION \
-      com.blacklabelops.application.jira.userid=$CONTAINER_UID \
-      com.blacklabelops.application.jira.groupid=$CONTAINER_GID \
-      com.blacklabelops.image.builddate.jira=${BUILD_DATE}
+#LABEL com.blacklabelops.application.jira.version=$JIRA_PRODUCT-$JIRA_VERSION \
+#      com.blacklabelops.application.jira.userid=$CONTAINER_UID \
+#      com.blacklabelops.application.jira.groupid=$CONTAINER_GID \
+#      com.blacklabelops.image.builddate.jira=${BUILD_DATE}
 
 USER jira
 WORKDIR ${JIRA_HOME}

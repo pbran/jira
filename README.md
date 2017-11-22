@@ -1,8 +1,10 @@
 # Dockerized Atlassian Jira
 
-[![Circle CI](https://circleci.com/gh/blacklabelops/jira.svg?style=shield)](https://circleci.com/gh/blacklabelops/jira)
-[![Open Issues](https://img.shields.io/github/issues/blacklabelops/jira.svg)](https://github.com/blacklabelops/jira/issues) [![Stars on GitHub](https://img.shields.io/github/stars/blacklabelops/jira.svg)](https://github.com/cblacklabelops/jira/stargazers)
-[![Docker Stars](https://img.shields.io/docker/stars/blacklabelops/jira.svg)](https://hub.docker.com/r/blacklabelops/jira/) [![Docker Pulls](https://img.shields.io/docker/pulls/blacklabelops/jira.svg)](https://hub.docker.com/r/blacklabelops/jira/)
+Forked from blacklabelops Github repository with grateful thanks to Steffen Bleul.
+
+# [![Circle CI](https://circleci.com/gh/blacklabelops/jira.svg?style=shield)](https://circleci.com/gh/blacklabelops/jira)
+# [![Open Issues](https://img.shields.io/github/issues/blacklabelops/jira.svg)](https://github.com/blacklabelops/jira/issues) [![Stars on GitHub](https://img.shields.io/github/stars/blacklabelops/jira.svg)](https://github.com/cblacklabelops/jira/stargazers)
+# [![Docker Stars](https://img.shields.io/docker/stars/blacklabelops/jira.svg)](https://hub.docker.com/r/blacklabelops/jira/) [![Docker Pulls](https://img.shields.io/docker/pulls/blacklabelops/jira.svg)](https://hub.docker.com/r/blacklabelops/jira/)
 
 
 "The best software teams ship early and often - Not many tools, one tool. JIRA Software is built for every member of your software team to plan, track, and release great software." - [[Source](https://www.atlassian.com/software/jira)]
@@ -11,9 +13,9 @@
 
 | Product |Version | Tags  | Dockerfile |
 |---------|--------|-------|------------|
-| Jira Software | 7.5.2 | 7.5.2, latest, latest.de | [Dockerfile](https://github.com/blacklabelops/jira/blob/master/Dockerfile) |
-| Jira Service Desk | 3.8.3 | servicedesk, servicedesk.3.8.3, servicedesk.de, servicedesk.3.8.3.de | [Dockerfile](https://github.com/blacklabelops/jira/blob/master/Dockerfile) |
-| Jira Core | 7.5.2 | core, core.7.5.2, core.de, core.7.5.2.de | [Dockerfile](https://github.com/blacklabelops/jira/blob/master/Dockerfile) |
+| Jira Software | 7.6.0 | 7.6.0, latest, latest.de | [Dockerfile](https://github.com/pbran/jira/blob/master/Dockerfile) |
+| Jira Service Desk | 3.9.0 | servicedesk, servicedesk.3.9.0, servicedesk.de, servicedesk.3.9.0.de | [Dockerfile](https://github.com/pbran/jira/blob/master/Dockerfile) |
+| Jira Core | 7.6.0 | core, core.7.6.0, core.de, core.7.6.0.de | [Dockerfile](https://github.com/pbran/jira/blob/master/Dockerfile) |
 
 > Older tags remain but are not supported/rebuild.
 
@@ -21,19 +23,13 @@
 
 ## Related Images
 
-You may also like:
-
-* [blacklabelops/jira](https://github.com/blacklabelops/jira): The #1 software development tool used by agile teams
-* [blacklabelops/confluence](https://github.com/blacklabelops/confluence): Create, organize, and discuss work with your team
-* [blacklabelops/bitbucket](https://github.com/blacklabelops/bitbucket): Code, Manage, Collaborate
-* [blacklabelops/crowd](https://github.com/blacklabelops/crowd): Identity management for web apps
 
 # Make It Short
 
 Docker-Compose:
 
 ~~~~
-$ curl -O https://raw.githubusercontent.com/blacklabelops/jira/master/docker-compose.yml
+$ curl -O https://raw.githubusercontent.com/pbran/jira/master/docker-compose.yml
 $ docker-compose up -d
 ~~~~
 
@@ -42,7 +38,7 @@ $ docker-compose up -d
 Docker-CLI:
 
 ~~~~
-$ docker run -d -p 80:8080 -v jiravolume:/var/atlassian/jira --name jira blacklabelops/jira
+$ docker run -d -p 80:8080 -v jiravolume:/var/atlassian/jira --name jira pbran/jira
 ~~~~
 
 > Jira will be available at http://yourdockerhost. Data will be persisted inside docker volume `jiravolume`.
@@ -80,7 +76,7 @@ $ docker run -d --name jira \
     -v jiravolume:/var/atlassian/jira \
 	  -e "JIRA_DATABASE_URL=postgresql://jira@postgres/jiradb" \
 	  -e "JIRA_DB_PASSWORD=jellyfish"  \
-	  -p 80:8080 blacklabelops/jira
+	  -p 80:8080 pbran/jira
 ~~~~
 
 >  Start the Jira and link it to the postgresql instance.
@@ -127,7 +123,7 @@ $ docker run -d --name jira \
     -v jiravolume:/var/atlassian/jira \
 	  -e "JIRA_DATABASE_URL=postgresql://jira@postgres/jiradb" \
 	  -e "JIRA_DB_PASSWORD=jellyfish" \
-	  -p 80:8080 blacklabelops/jira
+	  -p 80:8080 pbran/jira
 ~~~~
 
 >  Start the Jira and link it to the postgresql instance.
@@ -182,7 +178,7 @@ $ docker run -d --name jira \
     -v jiravolume:/var/atlassian/jira \
 	  -e "JIRA_DATABASE_URL=postgresql://jiradb@postgres/jiradb" \
 	  -e "JIRA_DB_PASSWORD=jellyfish" \
-	  -p 80:8080 blacklabelops/jira
+	  -p 80:8080 pbran/jira
 ~~~~
 
 >  Start the Jira and link it to the postgresql instance.
@@ -217,7 +213,6 @@ $ docker run -d --name mysql \
     tutum/mysql:5.6
 ~~~~
 
-> This is the tutum/mysql docker container I tested.
 
 Now start the Jira container and let it use the container. On first startup you have to configure your Jira yourself and fill it with a test license. Afterwards every time you connect to a database the Jira configuration will be skipped.
 
@@ -228,7 +223,7 @@ $ docker run -d --name jira \
     -e "JIRA_DATABASE_URL=mysql://jiradb@mysql/jiradb" \
     -e "JIRA_DB_PASSWORD=jellyfish"  \
     -p 80:8080 \
-    blacklabelops/jira
+    pbran/jira
 ~~~~
 
 >  Start the Jira and link it to the mysql instance.
@@ -258,7 +253,7 @@ $ docker run --name jira \
     -e "DOCKER_WAIT_PORT=5432" \
 	  -e "JIRA_DATABASE_URL=postgresql://jira@postgres/jiradb" \
 	  -e "JIRA_DB_PASSWORD=jellyfish"  \
-	  -p 80:8080 blacklabelops/jira
+	  -p 80:8080 pbran/jira
 ~~~~
 
 > Waits at most 60 seconds for the database.
@@ -275,7 +270,7 @@ $ docker run --name postgres -d \
     -e 'POSTGRES_ENCODING=UNICODE' \
     -e 'POSTGRES_COLLATE=C' \
     -e 'POSTGRES_COLLATE_TYPE=C' \
-    blacklabelops/postgres
+    pbran/postgres
 ~~~~
 
 > Jira will start after postgres is available!
@@ -300,7 +295,7 @@ $ docker run -d --name jira \
     -e "JIRA_PROXY_NAME=myhost.example.com" \
     -e "JIRA_PROXY_PORT=443" \
     -e "JIRA_PROXY_SCHEME=https" \
-    blacklabelops/jira
+    pbran/jira
 ~~~~
 
 > Will set the values inside the server.xml in /opt/jira/conf/server.xml
@@ -319,7 +314,7 @@ $ docker run -d --name jira \
     -e "JIRA_PROXY_NAME=192.168.99.100" \
     -e "JIRA_PROXY_PORT=80" \
     -e "JIRA_PROXY_SCHEME=http" \
-    blacklabelops/jira
+    pbran/jira
 ~~~~
 
 > Example with dockertools
@@ -333,7 +328,7 @@ $ docker run -d \
     --name nginx \
     -e "SERVER1REVERSE_PROXY_LOCATION1=/" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://jira:8080" \
-    blacklabelops/nginx
+    pbran/nginx
 ~~~~
 
 > Jira will be available at http://192.168.99.100.
@@ -354,7 +349,7 @@ $ docker run -d --name jira \
     -e "JIRA_PROXY_NAME=192.168.99.100" \
     -e "JIRA_PROXY_PORT=443" \
     -e "JIRA_PROXY_SCHEME=https" \
-    blacklabelops/jira
+    pbran/jira
 ~~~~
 
 > Example with dockertools
@@ -371,7 +366,7 @@ $ docker run -d \
     -e "SERVER1CERTIFICATE_DNAME=/CN=CrustyClown/OU=SpringfieldEntertainment/O=crusty.springfield.com/L=Springfield/C=US" \
     -e "SERVER1HTTPS_ENABLED=true" \
     -e "SERVER1HTTP_ENABLED=false" \
-    blacklabelops/nginx
+    pbran/nginx
 ~~~~
 
 > Jira will be available at https://192.168.99.100.
@@ -387,7 +382,7 @@ Example:
 $ docker run -d -p 80:8080 --name jira \
     -v jiravolume:/var/atlassian/jira \
     -e "CATALINA_OPTS= -Xms384m -Xmx1g" \
-    blacklabelops/jira
+    pbran/jira
 ~~~~
 
 > CATALINA_OPTS sets webserver startup properties.
@@ -401,7 +396,7 @@ $ docker run -d -p 80:8080 --name jira \
     -v jiravolume:/var/atlassian/jira \
     -e "JVM_MINIMUM_MEMORY=384m" \
     -e "JVM_MAXIMUM_MEMORY=1g" \
-    blacklabelops/jira
+    pbran/jira
 ~~~~
 
 > Note: Atlassian default is minimum 384m and maximum 768m. You should never go lower.
@@ -421,7 +416,7 @@ $ docker run -d --name jira \
     -p 80:8080 \
     -v jiravolume:/var/atlassian/jira \
     -v $(pwd)/server.xml:/opt/jira/conf/server.xml \
-    blacklabelops/jira
+    pbran/jira
 ~~~~
 
 > Note: `server.xml` is located in the directory where the command is executed.
